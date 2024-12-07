@@ -3,7 +3,6 @@ from indicnlp.tokenize import indic_tokenize
 from indicnlp.transliterate.unicode_transliterate import UnicodeIndicTransliterator
 
 
-# Load a Tamil word list (you need a word list for spell checking)
 def load_tamil_words():
     tamil_words = set()
     try:
@@ -15,7 +14,6 @@ def load_tamil_words():
     return tamil_words
 
 
-# Basic spell correction function using a dictionary
 def correct_spelling(tamil_text, tamil_words_set):
     corrected_text = []
     tokens = indic_tokenize.trivial_tokenize(tamil_text)  # Tokenize the Tamil text
@@ -30,13 +28,12 @@ def correct_spelling(tamil_text, tamil_words_set):
     return " ".join(corrected_text)
 
 
-# Function to find the closest matching word from the dictionary (basic edit distance approach)
 def find_closest_match(word, word_list):
-    closest_word = word  # Default is the word itself
+    closest_word = word
     min_distance = float('inf')
 
     for dict_word in word_list:
-        distance = levenshtein_distance(word, dict_word)  # Compute edit distance
+        distance = levenshtein_distance(word, dict_word)
         if distance < min_distance:
             min_distance = distance
             closest_word = dict_word
@@ -44,7 +41,6 @@ def find_closest_match(word, word_list):
     return closest_word
 
 
-# Levenshtein distance (edit distance) function
 def levenshtein_distance(a, b):
     if len(a) < len(b):
         return levenshtein_distance(b, a)
@@ -67,11 +63,9 @@ def levenshtein_distance(a, b):
     return d[len(a)][len(b)]
 
 
-# Example of correcting Tamil text
-tamil_text = "நான் ஒரு பள்ளி கறறல் நடந்து விடு. இது அறிவியல் ஆரா்ச்சி வினா ஆகும்."
-tamil_words_set = load_tamil_words()  # Load the Tamil word list
+tamil_text = "நான் புததகம் வாகினேன்"
+tamil_words_set = load_tamil_words()
 
-# If the word list is successfully loaded
 if tamil_words_set:
     corrected_text = correct_spelling(tamil_text, tamil_words_set)
     print("Original Text: ", tamil_text)
