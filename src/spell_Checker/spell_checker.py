@@ -6,7 +6,7 @@ from indicnlp.transliterate.unicode_transliterate import UnicodeIndicTranslitera
 def load_tamil_words():
     tamil_words = set()
     try:
-        with open("tamil_words.txt", "r", encoding="utf-8") as f:
+        with open("../tamil_words.txt", "r", encoding="utf-8") as f:
             for line in f:
                 tamil_words.add(line.strip())  # Add each word from the word list
     except FileNotFoundError:
